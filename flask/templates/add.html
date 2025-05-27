@@ -3,12 +3,26 @@
 <head><title>Adicionar Usuário</title></head>
 <body>
     <h1>Adicionar Usuário</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {% if category == 'error' %}red{% else %}green{% endif %};">
+              {{ message }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
     <form method="post" enctype="multipart/form-data">
         Nome: <input type="text" name="nome"><br>
         Email: <input type="email" name="email"><br>
-        Foto: <input type="file" name="foto"><br>
+        Foto: <input type="file" name="foto" accept="image/*"><br>
         <button type="submit">Salvar</button>
     </form>
     <a href="{{ url_for('index') }}">Voltar</a>
 </body>
 </html>
+
